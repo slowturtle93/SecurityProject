@@ -29,5 +29,42 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- UFT 인코딩 -->
+	<filter> 
+    	<filter-name>encodingFilter</filter-name> 
+    	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class> 
+    	<init-param> 
+        	<param-name>encoding</param-name> 
+       		<param-value>UTF-8</param-value> 
+    	</init-param> 
+    	<init-param> 
+       		<param-name>forceEncoding</param-name> 
+       		<param-value>true</param-value> 
+    	</init-param> 
+ 	</filter> 
+ 	<filter-mapping> 
+    	<filter-name>encodingFilter</filter-name> 
+    	<url-pattern>/*</url-pattern> 
+ 	</filter-mapping>
+ 	
+ 	<!-- Spring Security Filter -->
+ 	<filter>
+ 		<filter-name>springSecurityFilterChain</filter-name>
+ 		<!-- DelegatingFilterProxy : IOC 컨테이너에서 관리하는 빈이 아닌 표준 서블릿 필터를 구현하고 있으며 내부에 위임대상(FilterChainProxy)을 갖고있다-->
+ 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+ 	</filter>
+ 	<filter-mapping>
+ 		<filter-name>springSecurityFilterChain</filter-name>
+ 		<url-pattern>/*</url-pattern>
+ 	</filter-mapping>
+ 	
+ 	<!-- 설정 파일 경로 설정 -->
+ 	<context-param>
+ 		<param-name>contextConfigLocation</param-name>
+ 		<param-value>
+ 			/WEB-INF/spring/*-context.xml
+ 		</param-value>
+ 	</context-param>
 
 </web-app>

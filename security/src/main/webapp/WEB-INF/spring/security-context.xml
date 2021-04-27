@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security.xsd">
+        
+        <http auto-config="true" use-expressions="false">
+        	<!-- intercept-url : ant 경로 스타일 구문을 사용하여 수신 요청의 URL과 일치하는 패턴을 정의 -->
+            <intercept-url pattern="/**" access="ROLE_USER" />
+        </http>
+        
+        <authentication-manager>      <!-- 응용 프로그램에 인증 서비스를 제공하는 AuthenticationManager 등록을 담당 -->
+            <authentication-provider> <!-- DaoAuthenticationProvider 빈을 생성 -->
+                                      <!-- DaoAuthenticationProvider는 UserDetailsService에서 사용자 정보를 로드하고 사용자 이름/암호 조합을 로그인시 제공된 값과 비교 -->
+                <user-service>        <!-- InMemoryDaoImpl을 생성 / 속성 파일 또는 "사용자"자식 요소 목록에서 메모리 내 UserDetailsService를 생성 -->
+                    <user name="user" password="userPw" authorities="ROLE_USER"/>
+                    <user name="guest" password="guest" authorities="ROLE_GUEST"/>
+                </user-service>
+            </authentication-provider>
+        </authentication-manager>
+        
+</beans:beans>
