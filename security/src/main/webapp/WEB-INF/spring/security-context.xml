@@ -58,8 +58,10 @@
             <security:authentication-provider> <!-- DaoAuthenticationProvider 빈을 생성 -->
                                     		   <!-- DaoAuthenticationProvider는 UserDetailsService에서 사용자 정보를 로드하고 사용자 이름/암호 조합을 로그인시 제공된 값과 비교 -->
                 <security:user-service>        <!-- InMemoryDaoImpl을 생성 / 속성 파일 또는 "사용자"자식 요소 목록에서 메모리 내 UserDetailsService를 생성 -->
+                    <security:user name="guest" password="guestPw"  authorities="ROLE_GUEST"/>
                     <security:user name="user"  password="userPw" authorities="ROLE_USER"/>
-                    <security:user name="guest" password="guest"  authorities="ROLE_GUEST"/>
+                    <security:user name="member" password="memberPw"  authorities="ROLE_MEMBER"/>
+                    <security:user name="admin" password="adminPw"  authorities="ROLE_ADMIN"/>
                 </security:user-service>
             </security:authentication-provider>
         </security:authentication-manager>
