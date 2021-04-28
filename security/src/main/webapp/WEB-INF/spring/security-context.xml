@@ -40,6 +40,18 @@
 		    	error-page="/access_denied_page"
 		    />
 		    
+		    <!-- logout
+		    delete-cookies 사용자가 로그아웃할 때 삭제해야하는 쿠키이름의 쉼표로 구분 된 목록
+		    logout-url : 로그아웃을 유발할 URL
+		    invalidate-session : SecurityContextLogoutHandler의 invalidateHttpSession에 매핑, 기본값은 "true"이므로 로그아웃 시 세션이 무효화
+		    logout-success-url : 사용자가 로그아웃 후 연결되는 URL
+		     -->
+		    <security:logout
+		    	logout-url="/logout"
+		    	invalidate-session="true"
+		    	logout-success-url="/"
+		    />
+		    
         </security:http>
         
         <security:authentication-manager>      <!-- 응용 프로그램에 인증 서비스를 제공하는 AuthenticationManager 등록을 담당 -->
