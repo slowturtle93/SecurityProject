@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-                                 http://www.springframework.org/schema/beans/spring-beans.xsd
-                                 http://www.springframework.org/schema/security
-                                 http://www.springframework.org/schema/security/spring-security.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:security="http://www.springframework.org/schema/security"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+							http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+                                 
+       <context:component-scan base-package="com.khs.pjt"/>
         
-        <http auto-config="true" use-expressions="false">
+        <security:http auto-config="true" use-expressions="false">
         	<!-- intercept-url : ant 경로 스타일 구문을 사용하여 수신 요청의 URL과 일치하는 패턴을 정의 -->
-            <intercept-url pattern="/**" access="ROLE_USER" />
-        </http>
+            <security:intercept-url pattern="/**" access="ROLE_USER" />
+            
+            <!-- form-login 
+            UsernamePasswordAuthenticationFilter를 필터 스택에 추가하고 LoginUrlAuthenticationEntryPoint를 애플리케이션 컨텍스트에 추가하여 요청시 인증을 제공하는 데 사용
+            
+            username-parameter : 사용자 이름이 포함된 요청 매개 변수의 이름
+            password-parameter : 비밀번호를 포함하는 요청 매개 변수의 이름
+            login-processing-url : 로그인 양식이 게시되는 URL 
+            login-page : 로그인 페이지의 URL, 로그인 URL이 지정되지 않은 경우 Spring Security는 /login에 로그인 URL과 요청 시 해당 로그인 URL을 랜더링하는 해당 필터를 자동 생성
+            default-target-url : 사용자의 이전 작업을 재개 할 수 없는 경우 인증 성공 후 redriect 될 URL,
+            일반적으로 사용자가 인증을 트리거하는 보안 작업을 먼저 요청하지 않고 로그인 페이지를 방문하는 경우 발생
+           -->
+            <security:form-login
+		    	username-parameter="loginId"
+		        password-parameter="loginPwd"
+		        login-processing-url="/login"  
+		        login-page="/loginPage"
+		        default-target-url="/"
+		    /> 
+        </security:http>
         
-        <authentication-manager>      <!-- 응용 프로그램에 인증 서비스를 제공하는 AuthenticationManager 등록을 담당 -->
-            <authentication-provider> <!-- DaoAuthenticationProvider 빈을 생성 -->
-                                      <!-- DaoAuthenticationProvider는 UserDetailsService에서 사용자 정보를 로드하고 사용자 이름/암호 조합을 로그인시 제공된 값과 비교 -->
-                <user-service>        <!-- InMemoryDaoImpl을 생성 / 속성 파일 또는 "사용자"자식 요소 목록에서 메모리 내 UserDetailsService를 생성 -->
-                    <user name="user" password="userPw" authorities="ROLE_USER"/>
-                    <user name="guest" password="guest" authorities="ROLE_GUEST"/>
-                </user-service>
-            </authentication-provider>
-        </authentication-manager>
-        
-</beans:beans>
+        <security:authentication-manager>      <!-- 응용 프로그램에 인증 서비스를 제공하는 AuthenticationManager 등록을 담당 -->
+            <security:authentication-provider> <!-- DaoAuthenticationProvider 빈을 생성 -->
+                                    		   <!-- DaoAuthenticationProvider는 UserDetailsService에서 사용자 정보를 로드하고 사용자 이름/암호 조합을 로그인시 제공된 값과 비교 -->
+                <security:user-service>        <!-- InMemoryDaoImpl을 생성 / 속성 파일 또는 "사용자"자식 요소 목록에서 메모리 내 UserDetailsService를 생성 -->
+                    <security:user name="user" password="userPw" authorities="ROLE_USER"/>
+                    <security:user name="guest" password="guest" authorities="ROLE_GUEST"/>
+                </security:user-service>
+            </security:authentication-provider>
+        </security:authentication-manager>
+</beans>
