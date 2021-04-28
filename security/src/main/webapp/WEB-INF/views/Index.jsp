@@ -14,6 +14,13 @@
           <h1>Spring Security</h1><br>
           <sec:authorize access="isAnonymous()">
         	<h5><a href='<c:url value="/loginPage"/>' class="badge badge-pill badge-info">LOGIN</a> 로그인 해주세요.</h5>
+          </sec:authorize>
+          <sec:authorize access="isAuthenticated()">
+        	<h5>님, 반갑습니다.</h5>
+	        <form action='<c:url value="/logout"/>' method="POST">
+	                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	                <button type="submit" class="btn btn-dark btn-sm">LOGOUT</button>
+	        </form>
         </sec:authorize>
       </div>
       <br><br>
