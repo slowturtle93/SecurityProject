@@ -33,6 +33,13 @@
 		        login-page           = "/loginPage"
 		        default-target-url   = "/"
 		    /> 
+		    
+		    <!-- access-denied-handler
+		    error-page 인증 된 사용자가 액세스 권한이 없는 페이지를 요청하는 경우 리다이렉션되는 액세스 거부 페이지 -->
+		    <security:access-denied-handler
+		    	error-page="/access_denied_page"
+		    />
+		    
         </security:http>
         
         <security:authentication-manager>      <!-- 응용 프로그램에 인증 서비스를 제공하는 AuthenticationManager 등록을 담당 -->
