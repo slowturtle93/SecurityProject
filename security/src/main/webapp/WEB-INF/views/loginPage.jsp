@@ -10,7 +10,7 @@
 <body>
       <br><br>
       <div class="container text-center">
-          <h1>Security Prj</h1><br>
+          <h1>Spring Security</h1><br>
       </div>
       <div class="container col-md-4">
 	      <form class="px-4 py-3" action="/login" method="post">
