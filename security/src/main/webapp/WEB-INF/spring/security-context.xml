@@ -58,8 +58,10 @@
 		<security:authentication-manager> <!-- 응용 프로그램에 인증 서비스를 제공하는 AuthenticationManager 등록을 담당 -->
 		    <security:authentication-provider user-service-ref="userService"/> <!-- DaoAuthenticationProvider 빈을 생성 -->
 		    																   <!-- DaoAuthenticationProvider는 UserDetailsService에서 사용자 정보를 로드하고 사용자 이름/암호 조합을 로그인시 제공된 값과 비교 -->
+		    <security:authentication-provider ref="userAuthProvider"/>
 		</security:authentication-manager>
 		
-		<bean id="userService" class="com.khs.pjt.Web.service.CustomUserDetailsService"/>
-        
+		<bean id="userService"      class="com.khs.pjt.Web.service.CustomUserDetailsService"/>
+        <bean id="userAuthProvider" class="com.khs.pjt.Web.resolver.CustomAuthenticationProvider"/>
+
 </beans>
