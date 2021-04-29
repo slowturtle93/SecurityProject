@@ -34,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException(username);
         }
  
-        if(!user.isEnabled()) {
+        if(!user.isEnabled() || !!user.isCredentialsNonExpired()) {
             throw new BadCredentialsException(username);
         }
         

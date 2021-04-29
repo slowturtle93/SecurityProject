@@ -22,10 +22,10 @@
 	              <label for="exampleDropdownFormPassword1">Password</label>
 	              <input type="password" class="form-control" name="loginPwd" placeholder="Password">
 	          </div>
-	          <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+	          <c:if test="${not empty ERRORMSG}">
 			      <font color="red">
 			          <p>Your login attempt was not successful due to <br/>
-			              ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p>
+			              ${ERRORMSG }</p>
 			          <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
 			      </font>
 			  </c:if>

@@ -13,4 +13,22 @@
 		 WHERE loginId = #{loginId}
 	</select>
 	
+	<update id="updateFailureCount">
+		UPDATE TBL_USER_INFO
+		   SET failureCnt = failureCnt + 1
+		 WHERE loginId = #{loginId}
+	</update>
+	
+	<select id="checkFailureCount" resultType="Integer">
+		SELECT failureCnt
+		  FROM TBL_USER_INFO
+		 WHERE loginId = #{loginId}
+	</select>
+	
+	<update id="updateUnenabled">
+		UPDATE TBL_USER_INFO
+		   SET ENABLED = 0
+		 WHERE loginId = #{loginId}
+	</update>
+	
  </mapper>

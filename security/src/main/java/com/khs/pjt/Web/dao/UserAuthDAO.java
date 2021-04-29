@@ -22,4 +22,16 @@ public class UserAuthDAO {
         return sqlSession.selectOne("userLoginMapper.selectUserById", username);
     }
     
+    public void updateFailureCount(String username) {
+		sqlSession.update("userLoginMapper.updateFailureCount", username);
+	}
+	
+	public int checkFailureCount(String username) {
+		return sqlSession.selectOne("userLoginMapper.checkFailureCount", username);
+	}
+	
+	public void updateDisabled(String username) {
+		sqlSession.update("userLoginMapper.updateUnenabled", username);
+	}
+
 }

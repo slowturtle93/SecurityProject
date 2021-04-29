@@ -26,6 +26,7 @@
             login-page : 로그인 페이지의 URL, 로그인 URL이 지정되지 않은 경우 Spring Security는 /login에 로그인 URL과 요청 시 해당 로그인 URL을 랜더링하는 해당 필터를 자동 생성
             default-target-url : 사용자의 이전 작업을 재개 할 수 없는 경우 인증 성공 후 redriect 될 URL,
             일반적으로 사용자가 인증을 트리거하는 보안 작업을 먼저 요청하지 않고 로그인 페이지를 방문하는 경우 발생
+            authentication-failure-handler-ref : 실패한 인증 요청을 처리하는 데 사용되어야하는 AuthenticationFailureHandler 빈에 대한 참조
            -->
             <security:form-login
 		    	username-parameter   = "loginId"
@@ -33,6 +34,7 @@
 		        login-processing-url = "/login"  
 		        login-page           = "/loginPage"
 		        default-target-url   = "/"
+		        authentication-failure-handler-ref="loginFailureHandler"
 		    /> 
 		    
 		    <!-- access-denied-handler
@@ -63,5 +65,14 @@
 		
 		<bean id="userService"      class="com.khs.pjt.Web.service.CustomUserDetailsService"/>
         <bean id="userAuthProvider" class="com.khs.pjt.Web.resolver.CustomAuthenticationProvider"/>
+        
+        <bean id="loginFailureHandler" class="com.khs.pjt.handler.LoginFailureHandler">
+		    <property name="loginidname" value="loginId"/>
+		    <property name="loginpwdname" value="loginPwd"/>
+		    <property name="errormsgname" value="ERRORMSG"/>
+		    <property name="defaultFailureUrl" value="/loginPage?error"/>
+		</bean>
+
+
 
 </beans>
