@@ -66,5 +66,10 @@
  			/WEB-INF/spring/*-context.xml
  		</param-value>
  	</context-param>
+ 	
+ 	<!-- session listener -->
+    <listener>
+        <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+    </listener>
 
 </web-app>
