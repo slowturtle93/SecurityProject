@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userLoginMapper">
-
+	
+	<!-- 로그인 정보 조회 -->
  	<select id="selectUserById" resultType="com.khs.pjt.Web.vo.CustomUserDetails">
 		SELECT loginId AS ID
 		     , loginPw AS PASSWORD
@@ -13,22 +14,39 @@
 		 WHERE loginId = #{loginId}
 	</select>
 	
+	<!-- 로그인 실패 횟수 업데이트 -->
 	<update id="updateFailureCount">
 		UPDATE TBL_USER_INFO
 		   SET failureCnt = failureCnt + 1
 		 WHERE loginId = #{loginId}
 	</update>
 	
+	<!-- 로그인 실패 횟수 조회 -->
 	<select id="checkFailureCount" resultType="Integer">
 		SELECT failureCnt
 		  FROM TBL_USER_INFO
 		 WHERE loginId = #{loginId}
 	</select>
 	
+	<!-- 해당 계정 비활성화 -->
 	<update id="updateUnenabled">
 		UPDATE TBL_USER_INFO
 		   SET ENABLED = 0
 		 WHERE loginId = #{loginId}
+	</update>
+	
+	<!-- 로그인 실패 횟수 초기화 -->
+	<update id="updateFailureCountReset">
+			UPDATE TBL_USER_INFO
+			   SET failureCnt = 0
+			 WHERE loginId = #{loginId}
+	</update>
+	
+	<!-- 접속 시간 업데이트 -->
+	<update id="updateAccessDate">
+			UPDATE TBL_USER_INFO
+			   SET accessDate = SYSDATE
+			 WHERE loginId = #{loginId}
 	</update>
 	
  </mapper>

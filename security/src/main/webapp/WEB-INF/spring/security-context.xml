@@ -35,6 +35,7 @@
 		        login-page           = "/loginPage"
 		        default-target-url   = "/"
 		        authentication-failure-handler-ref="loginFailureHandler"
+		        authentication-success-handler-ref="loginSuccessHandler"
 		    /> 
 		    
 		    <!-- access-denied-handler
@@ -73,6 +74,9 @@
 		    <property name="defaultFailureUrl" value="/loginPage?error"/>
 		</bean>
 
-
+		<bean id="loginSuccessHandler" class="com.khs.pjt.handler.LoginSuccessHandler">
+        	<property name="loginidname" value="loginId"/>
+        	<property name="defaultUrl" value="/"/>
+        </bean>
 
 </beans>

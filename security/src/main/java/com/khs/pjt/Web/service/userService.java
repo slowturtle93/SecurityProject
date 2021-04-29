@@ -6,5 +6,9 @@ public interface userService {
 	int checkFailureCount(String username);
 
 	void disabledUsername(String username);
+	
+	void resetFailureCnt(String username);
+
+	void updateAccessDate(String username);
 
 }
