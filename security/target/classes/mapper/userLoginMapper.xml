@@ -3,7 +3,12 @@
 <mapper namespace="userLoginMapper">
 
  	<select id="selectUserById" resultType="com.khs.pjt.Web.vo.CustomUserDetails">
-		SELECT *
+		SELECT loginId AS ID
+		     , loginPw AS PASSWORD
+		     , userNm AS NAME
+		     , authority AS AUTHORITY
+		     , enabled AS ENABLED
+		     , failureCnt 
 		  FROM TBL_USER_INFO
 		 WHERE loginId = #{loginId}
 	</select>
